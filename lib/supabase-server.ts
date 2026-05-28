@@ -17,7 +17,7 @@ export function createSupabaseServer() {
         getAll() {
           return cookieStore.getAll();
         },
-        setAll(cookiesToSet) {
+        setAll(cookiesToSet: { name: string; value: string; options?: any }[]) {
           // In server components (during render) writing cookies is a no-op.
           // In route handlers / server actions, cookieStore.set is callable.
           try {
