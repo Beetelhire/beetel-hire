@@ -1,0 +1,25 @@
+# Node
+node_modules
+.pnp
+.pnp.js
+
+# Next.js
+.next/
+out/
+build/
+
+# Production
+*.log
+.env*.local
+.env
+
+# Misc
+.DS_Store
+*.pem
+.vercel
+.idea
+.vscode
+
+# Typescript
+*.tsbuildinfo
+next-env.d.ts
