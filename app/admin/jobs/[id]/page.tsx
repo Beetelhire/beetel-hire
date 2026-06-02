@@ -1,12 +1,14 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { createSupabaseServer } from '@/lib/supabase-server';
-import { fmtRelative, jobExpectedFee, rupeeFmt, functionIcon } from '@/lib/format';
+import { jobExpectedFee, rupeeFmt, functionIcon } from '@/lib/format';
 import * as LucideIcons from 'lucide-react';
-import { ArrowLeft, Edit2, ChevronRight, Globe, Linkedin, Instagram } from 'lucide-react';
+import { ArrowLeft, Edit2, Globe, Linkedin, Instagram } from 'lucide-react';
+import { JobPipelineView, PipelineRow } from '@/components/admin/job-pipeline-view';
+import type { PipelineStage } from '@/types/database';
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
 
 function statusPill(s: string) {
   const labels: Record<string, string> = { live: 'Live', review: 'Shortlisting', pending: 'Calibrating', rejected: 'Closed' };
@@ -23,11 +25,56 @@ export default async function AdminJobDetailPage({ params }: { params: { id: str
   const { data: j } = await supabase.from('jobs').select('*').eq('id', params.id).single();
   if (!j) notFound();
 
-  const { data: apps } = await supabase
-    .from('applications')
-    .select('id, status, applied_at, candidate:candidates(id, name, email, avatar_url, experience, location)')
+  // Pipeline mappings (canonical source for stage tracking)
+  const { data: mappings } = await supabase
+    .from('candidate_job_mappings')
+    .select(`
+      id, stage, source, added_at, recruiter_id,
+      candidate:candidates(id, name, email, avatar_url, experience, location),
+      recruiter:team_members(id, full_name)
+    `)
     .eq('job_id', j.id)
-    .order('applied_at', { ascending: false });
+    .order('added_at', { ascending: false });
+
+  // Team members for filters / recruiter assignment dropdowns
+  const { data: teamRes } = await supabase
+    .from('team_members')
+    .select('id, full_name, role')
+    .eq('status', 'Active')
+    .order('full_name');
+  const teamMembers = (teamRes || []) as any;
+
+  // Build the rows the pipeline view consumes
+  const rows: PipelineRow[] = (mappings || [])
+    .filter((m: any) => !!m.candidate?.id)
+    .map((m: any) => ({
+      mapping_id:         m.id,
+      candidate_id:       m.candidate.id,
+      candidate_name:     m.candidate.name,
+      candidate_email:    m.candidate.email,
+      candidate_avatar:   m.candidate.avatar_url || null,
+      candidate_experience: m.candidate.experience || null,
+      candidate_location: m.candidate.location || null,
+      stage:              m.stage as PipelineStage,
+      recruiter_id:       m.recruiter_id || null,
+      recruiter_name:     m.recruiter?.full_name || null,
+      source:             m.source || null,
+      added_at:           m.added_at,
+    }));
+
+  // Pool for "Add existing" — every candidate NOT already on this job
+  const onThisJobIds = new Set(rows.map(r => r.candidate_id));
+  const { data: allCands } = await supabase
+    .from('candidates')
+    .select('id, name, email, source, current_company, experience, location, recruiter_id')
+    .order('last_touch', { ascending: false });
+  const poolForLinking = (allCands || [])
+    .filter((c: any) => !onThisJobIds.has(c.id))
+    .map((c: any) => ({
+      id: c.id, name: c.name, email: c.email, source: c.source,
+      current_company: c.current_company, experience: c.experience,
+      location: c.location, recruiter_id: c.recruiter_id,
+    }));
 
   const con = (j.client_contact || {}) as any;
   const platforms = j.posted_platforms || ['website'];
@@ -97,54 +144,15 @@ export default async function AdminJobDetailPage({ params }: { params: { id: str
         </div>
       </div>
 
-      {/* Applicants */}
-      <div className="panel">
-        <div className="panel-head">
-          <div>
-            <h3>Applicants</h3>
-            <div className="sub">{apps?.length || 0} applicant{apps?.length === 1 ? '' : 's'}</div>
-          </div>
-        </div>
-        <table className="table">
-          <thead>
-            <tr><th>Candidate</th><th>Experience</th><th>Location</th><th>Applied</th><th>Status</th><th></th></tr>
-          </thead>
-          <tbody>
-            {(apps || []).map((a: any) => {
-              const c = a.candidate;
-              if (!c) return null;
-              return (
-                <tr key={a.id}>
-                  <td>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                      {c.avatar_url
-                        ? <img alt="" src={c.avatar_url} style={{ width: 32, height: 32, borderRadius: '50%', objectFit: 'cover' }} />
-                        : <div style={{ width: 32, height: 32, borderRadius: '50%', background: 'linear-gradient(135deg,var(--accent),var(--accent-2))' }} />}
-                      <div>
-                        <div style={{ fontWeight: 500 }}>{c.name}</div>
-                        <div className="small">{c.email}</div>
-                      </div>
-                    </div>
-                  </td>
-                  <td>{c.experience || '—'}</td>
-                  <td>{c.location || '—'}</td>
-                  <td>{fmtRelative(a.applied_at)}</td>
-                  <td><span className={`hire-status-pill ${a.status}`}><span className="ddot"></span>{a.status}</span></td>
-                  <td style={{ textAlign: 'right' }}><ChevronRight size={14} style={{ color: 'var(--fg-subtle)' }} /></td>
-                </tr>
-              );
-            })}
-            {(!apps || apps.length === 0) && (
-              <tr><td colSpan={6}>
-                <div className="empty">
-                  <h4>No applicants yet</h4>
-                  <p>Once candidates apply, they&apos;ll show up here.</p>
-                </div>
-              </td></tr>
-            )}
-          </tbody>
-        </table>
-      </div>
+      {/* Pipeline */}
+      <JobPipelineView
+        jobId={j.id}
+        jobTitle={j.title}
+        rows={rows}
+        poolForLinking={poolForLinking}
+        teamMembers={teamMembers}
+        thisJob={{ id: j.id, title: j.title, client_company: j.client_company || '', status: j.status }}
+      />
     </>
   );
 }

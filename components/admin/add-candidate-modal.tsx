@@ -29,6 +29,7 @@ type Props = {
   onClose: () => void;
   jobs: JobLite[];
   teamMembers: TeamMemberLite[];
+  preselectedJobIds?: string[];
 };
 
 const INITIAL = {
@@ -46,7 +47,7 @@ const INITIAL = {
   notes: '',
 };
 
-export function AddCandidateModal({ open, onClose, jobs, teamMembers }: Props) {
+export function AddCandidateModal({ open, onClose, jobs, teamMembers, preselectedJobIds }: Props) {
   const router = useRouter();
   const [vals, setVals] = useState(INITIAL);
   const [resume, setResume] = useState<File | null>(null);
@@ -57,9 +58,9 @@ export function AddCandidateModal({ open, onClose, jobs, teamMembers }: Props) {
     if (open) {
       setVals(INITIAL);
       setResume(null);
-      setSelectedJobs([]);
+      setSelectedJobs(preselectedJobIds && preselectedJobIds.length ? [...preselectedJobIds] : []);
     }
-  }, [open]);
+  }, [open, preselectedJobIds]);
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) { if (e.key === 'Escape' && open) onClose(); }

@@ -19,6 +19,7 @@ All migrations are **idempotent** — running them twice is safe. They use `crea
 | File | What it does |
 |---|---|
 | `001_phase1_foundation.sql` | Phase 1: adds team_members, monthly_performance, contact_enquiries, candidate_job_mappings, audit_logs. Adds new columns to candidates. Sets RLS policies. |
+| `002_phase4_backfill_mappings.sql` | Phase 4 utility: backfills `candidate_job_mappings` rows for every existing `applications` row. Safe to re-run (uses `on conflict do nothing`). Optional — without it, candidates who applied via the public form before Phase 4 will not appear in the Pipeline view. |
 
 ## Verifying after running
 

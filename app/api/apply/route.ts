@@ -116,14 +116,30 @@ export async function POST(req: Request) {
     }
 
     // 4. Create application (or no-op if it already exists due to unique constraint)
+    const nowIso = new Date().toISOString();
     const { error: appErr } = await supabase
       .from('applications')
       .insert({
-        candidate_id, job_id, applied_at: new Date().toISOString(), status: 'Selected',
+        candidate_id, job_id, applied_at: nowIso, status: 'Selected',
       });
     if (appErr && appErr.code !== '23505') { // 23505 = unique violation (already applied)
       console.error('application insert error:', appErr);
       return NextResponse.json({ error: 'could not record application' }, { status: 500 });
+    }
+
+    // 4b. Also create / upsert a candidate_job_mappings row so this candidate
+    //     appears in the Pipeline view going forward. Ignored if already exists.
+    const { error: mapErr } = await supabase
+      .from('candidate_job_mappings')
+      .insert({
+        candidate_id, job_id,
+        stage: 'Applied',
+        source: 'Inbound',
+        added_at: nowIso,
+      });
+    if (mapErr && mapErr.code !== '23505') {
+      // Non-fatal — application is recorded, log and continue
+      console.error('mapping insert (apply) error:', mapErr);
     }
 
     // 5. Bump the job's applicants_count
