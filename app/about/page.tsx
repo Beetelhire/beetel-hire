@@ -4,17 +4,6 @@ import { Ear, Shield, Scale, HandCoins, MessageCircle, Clock } from 'lucide-reac
 
 export const dynamic = 'force-dynamic';
 
-const TEAM = [
-  { name: 'Aanya Krishnan', role: 'Co-founder & Managing Partner', src: 'https://images.unsplash.com/photo-1620553964043-23e95f17ee75?w=600&h=750&auto=format&fit=crop&q=85' },
-  { name: 'Thomas Berge',   role: 'Co-founder & Head of Engineering Search', src: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=750&auto=format&fit=crop&q=85' },
-  { name: 'Mira Soto',      role: 'Partner, Product & Design Practice', src: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=600&h=750&auto=format&fit=crop&q=85' },
-  { name: 'Jonas Ek',       role: 'Partner, Executive Search', src: 'https://images.unsplash.com/photo-1463453091185-61582044d556?w=600&h=750&auto=format&fit=crop&q=85' },
-  { name: 'Yara Haddad',    role: 'Director, EMEA', src: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&h=750&auto=format&fit=crop&q=85' },
-  { name: 'Hiroshi Tanaka', role: 'Director, APAC', src: 'https://images.unsplash.com/photo-1568822617270-2c1579f8dfe2?w=600&h=750&auto=format&fit=crop&q=85' },
-  { name: "Sarah O'Connell",role: 'Head of Operations', src: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=600&h=750&auto=format&fit=crop&q=85' },
-  { name: 'Ade Akinyemi',   role: 'Head of Candidate Experience', src: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=600&h=750&auto=format&fit=crop&q=85' },
-];
-
 const PROCESS = [
   { num: '01', title: 'Discovery',         text: 'A 90-minute conversation to understand the role, the team, the culture, and the constraints.', badge: '~1 week' },
   { num: '02', title: 'Calibration',       text: 'We send a calibration set — three to five profiles — to confirm we\'ve understood the bar.', badge: '~1 week' },
@@ -117,36 +106,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Leadership */}
-      <section className="section">
-        <div className="container">
-          <div className="section-head">
-            <div className="left">
-              <span className="t-eyebrow label"><span className="dot"></span>Leadership</span>
-              <h2 className="t-h1 title">The team you&apos;ll actually work with.</h2>
-            </div>
-            <p className="t-body" style={{ maxWidth: '32ch' }}>Senior partners on every engagement. No bait-and-switch, no offshore handoff.</p>
-          </div>
-          <div className="team-grid">
-            {TEAM.map(m => (
-              <div className="member reveal in" key={m.name}>
-                <div className="portrait"><img alt={m.name} src={m.src} /></div>
-                <div className="info">
-                  <div className="name">{m.name}</div>
-                  <div className="role">{m.role}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Founder */}
       <section className="section">
         <div className="container">
           <div className="founder-section">
             <div className="founder-portrait reveal in">
-              <img alt="Aanya Krishnan, co-founder" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&h=900&auto=format&fit=crop&q=88" />
+              <img alt="Deepa M, Co-founder & CEO" src="/deepa-m.jpg" />
             </div>
             <div className="reveal in">
               <span className="t-eyebrow label"><span className="dot"></span>A note from the founder</span>
@@ -158,10 +123,14 @@ export default function AboutPage() {
                 We&apos;re building something that feels different. Quieter. More curated. The kind of practice you&apos;d recommend to a friend without caveats — and that&apos;s the only metric we care about.
               </blockquote>
               <div className="sig">
-                <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg, var(--violet), var(--accent))', border: '1px solid var(--border)' }} />
+                <img
+                  src="/deepa-m.jpg"
+                  alt=""
+                  style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', border: '1px solid var(--border)' }}
+                />
                 <div>
-                  <div className="sig-name">Aanya Krishnan</div>
-                  <div className="sig-role">Co-founder, Beetel Hire</div>
+                  <div className="sig-name">Deepa M</div>
+                  <div className="sig-role">Co-founder &amp; CEO, Beetel Hire</div>
                 </div>
               </div>
             </div>
