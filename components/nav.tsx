@@ -46,6 +46,7 @@ export function TopBar() {
           <Link className={`nav-link${isActive('/about') ? ' active' : ''}`} href="/about">About</Link>
           <Link className={`nav-link${isActive('/industries') ? ' active' : ''}`} href="/industries">Industries</Link>
           <Link className={`nav-link${isActive('/jobs') ? ' active' : ''}`} href="/jobs">Jobs</Link>
+          <Link className={`nav-link${isActive('/contact') ? ' active' : ''}`} href="/contact">Contact</Link>
         </div>
         <div className="nav-cta">
           <button className="btn btn-icon theme-toggle" onClick={toggle} aria-label="Toggle theme">

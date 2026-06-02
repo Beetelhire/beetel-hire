@@ -40,6 +40,7 @@ export function MobileMenu({ children }: { children?: React.ReactNode }) {
           <Link href="/about"      onClick={close}><span className="num">02</span><span>About</span><ArrowUpRight size={18} /></Link>
           <Link href="/industries" onClick={close}><span className="num">03</span><span>Industries</span><ArrowUpRight size={18} /></Link>
           <Link href="/jobs"       onClick={close}><span className="num">04</span><span>Jobs</span><ArrowUpRight size={18} /></Link>
+          <Link href="/contact"    onClick={close}><span className="num">05</span><span>Contact</span><ArrowUpRight size={18} /></Link>
         </div>
         <div className="mobile-menu-foot">
           <Link className="btn btn-secondary" href="/sign-in" onClick={close}>

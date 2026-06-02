@@ -6,7 +6,7 @@ import { createSupabaseBrowser } from '@/lib/supabase-client';
 import { Profile } from '@/types/database';
 import {
   LayoutDashboard, Briefcase, UsersRound, Inbox, Calendar,
-  BarChart3, Building2, Settings, LogOut
+  BarChart3, Building2, Settings, LogOut, MessageSquare
 } from 'lucide-react';
 
 export function AdminSidebar({ profile }: { profile: Profile }) {
@@ -35,6 +35,7 @@ export function AdminSidebar({ profile }: { profile: Profile }) {
       <Link className={`side-link${isActive('/admin/candidates') ? ' active' : ''}`}       href="/admin/candidates"><UsersRound /> Candidate Pool</Link>
       <Link className={`side-link${isActive('/admin/applications') ? ' active' : ''}`}     href="/admin/applications"><Inbox /> Applications</Link>
       <Link className={`side-link${isActive('/admin/meetings') ? ' active' : ''}`}         href="/admin/meetings"><Calendar /> Meetings</Link>
+      <Link className={`side-link${isActive('/admin/enquiries') ? ' active' : ''}`}        href="/admin/enquiries"><MessageSquare /> Enquiries</Link>
 
       <div className="side-label">Insights</div>
       <Link className={`side-link${isActive('/admin/analytics') ? ' active' : ''}`}        href="/admin/analytics"><BarChart3 /> Analytics</Link>
