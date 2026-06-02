@@ -4546,3 +4546,19 @@ a.contact-value:hover { color: var(--accent); }
 /* Spinner for submit buttons */
 .spin { animation: spin 1s linear infinite; }
 @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+
+/* ─── Analytics dashboard (Phase 6) ─────────────────────── */
+@media (max-width: 880px) {
+  /* Two-column grids in analytics → single column on mobile */
+  .admin-content > div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-content > .panel div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* Funnel rows stack better on narrow screens */
+  .admin-content > .panel > div > div[style*="130px 1fr 100px 70px"] {
+    grid-template-columns: 110px 1fr 60px 50px !important;
+    gap: 8px !important;
+  }
+}
