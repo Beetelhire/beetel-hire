@@ -27,25 +27,32 @@ export function TeamTable({ rows: initial }: { rows: TeamRow[] }) {
   const [statusFilter, setStatusFilter] = useState<'all' | 'Active' | 'Inactive'>('all');
   const [roleFilter, setRoleFilter] = useState<string>('');
   const [deptFilter, setDeptFilter] = useState<string>('');
+  const [managerFilter, setManagerFilter] = useState<string>('');
   const [addOpen, setAddOpen] = useState(false);
 
   const departments = useMemo(() => [...new Set(initial.map(r => r.department).filter(Boolean))].sort() as string[], [initial]);
   const roles       = useMemo(() => [...new Set(initial.map(r => r.role).filter(Boolean))].sort(), [initial]);
   const managers    = useMemo(() => initial.map(r => ({ id: r.id, full_name: r.full_name })), [initial]);
+  // Only people who actually have direct reports show up in the Manager filter
+  const managersWithReports = useMemo(() => {
+    const managerIds = new Set(initial.map(r => r.manager_id).filter(Boolean) as string[]);
+    return initial.filter(r => managerIds.has(r.id));
+  }, [initial]);
 
   const filtered = useMemo(() => {
     const q = search.trim().toLowerCase();
     return initial.filter(r => {
       if (statusFilter !== 'all' && r.status !== statusFilter) return false;
-      if (roleFilter && r.role !== roleFilter)        return false;
-      if (deptFilter && r.department !== deptFilter)  return false;
+      if (roleFilter && r.role !== roleFilter)            return false;
+      if (deptFilter && r.department !== deptFilter)      return false;
+      if (managerFilter && r.manager_id !== managerFilter) return false;
       if (q) {
         const hay = `${r.full_name} ${r.email} ${r.employee_id || ''} ${r.designation || ''}`.toLowerCase();
         if (!hay.includes(q)) return false;
       }
       return true;
     });
-  }, [initial, search, statusFilter, roleFilter, deptFilter]);
+  }, [initial, search, statusFilter, roleFilter, deptFilter, managerFilter]);
 
   return (
     <>
@@ -74,6 +81,14 @@ export function TeamTable({ rows: initial }: { rows: TeamRow[] }) {
           <select value={deptFilter} onChange={e => setDeptFilter(e.target.value)}>
             <option value="">All</option>
             {departments.map(d => <option key={d} value={d}>{d}</option>)}
+          </select>
+        </button>
+
+        <button className={`filter-tag${managerFilter ? ' active' : ''}`}>
+          Manager:
+          <select value={managerFilter} onChange={e => setManagerFilter(e.target.value)}>
+            <option value="">All</option>
+            {managersWithReports.map(m => <option key={m.id} value={m.id}>{m.full_name}</option>)}
           </select>
         </button>
 

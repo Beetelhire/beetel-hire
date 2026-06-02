@@ -24,7 +24,11 @@ type J = {
   posted_at: string;
   posted_platforms: string[];
   applicants_count: number;
+  recruiter_id?: string | null;
+  recruiter_name?: string | null;
 };
+
+type TeamLite = { id: string; full_name: string };
 
 function statusPill(s: string) {
   const labels: Record<string, string> = { live: 'Live', review: 'Shortlisting', pending: 'Calibrating', rejected: 'Closed' };
@@ -38,12 +42,13 @@ function PlatformPill({ p }: { p: string }) {
 
 const PAGE_SIZE = 10;
 
-export function AdminJobsTable({ jobs: allJobs }: { jobs: J[] }) {
+export function AdminJobsTable({ jobs: allJobs, teamMembers = [] }: { jobs: J[]; teamMembers?: TeamLite[] }) {
   const router = useRouter();
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState('');
   const [client, setClient] = useState('');
   const [platform, setPlatform] = useState('');
+  const [recruiter, setRecruiter] = useState('');
   const [sortKey, setSortKey] = useState<'title' | 'client_company' | 'loc' | 'status' | 'posted_at' | 'applicants'>('posted_at');
   const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
   const [page, setPage] = useState(1);
@@ -57,9 +62,10 @@ export function AdminJobsTable({ jobs: allJobs }: { jobs: J[] }) {
       const q = search.toLowerCase();
       arr = arr.filter(j => `${j.title} ${j.client_company} ${j.loc} ${j.fn || ''}`.toLowerCase().includes(q));
     }
-    if (status)   arr = arr.filter(j => j.status === status);
-    if (client)   arr = arr.filter(j => j.client_company === client);
-    if (platform) arr = arr.filter(j => (j.posted_platforms || []).includes(platform));
+    if (status)    arr = arr.filter(j => j.status === status);
+    if (client)    arr = arr.filter(j => j.client_company === client);
+    if (platform)  arr = arr.filter(j => (j.posted_platforms || []).includes(platform));
+    if (recruiter) arr = arr.filter(j => j.recruiter_id === recruiter);
 
     arr.sort((a, b) => {
       let va: any = a[sortKey === 'applicants' ? 'applicants_count' : sortKey];
@@ -73,7 +79,7 @@ export function AdminJobsTable({ jobs: allJobs }: { jobs: J[] }) {
       return 0;
     });
     return arr;
-  }, [allJobs, search, status, client, platform, sortKey, sortDir]);
+  }, [allJobs, search, status, client, platform, recruiter, sortKey, sortDir]);
 
   const totalPages = Math.max(1, Math.ceil(filtered.length / PAGE_SIZE));
   const safePage = Math.min(page, totalPages);
@@ -138,6 +144,14 @@ export function AdminJobsTable({ jobs: allJobs }: { jobs: J[] }) {
           </select>
         </button>
 
+        <button className={`filter-tag${recruiter ? ' active' : ''}`}>
+          Recruiter:
+          <select value={recruiter} onChange={e => { setRecruiter(e.target.value); setPage(1); }}>
+            <option value="">All</option>
+            {teamMembers.map(t => <option key={t.id} value={t.id}>{t.full_name}</option>)}
+          </select>
+        </button>
+
         <div style={{ marginLeft: 'auto' }}>
           <ExportMenu
             filename="open-jobs"
@@ -152,6 +166,7 @@ export function AdminJobsTable({ jobs: allJobs }: { jobs: J[] }) {
               { key: 'fn', label: 'Function' },
               { key: 'experience', label: 'Experience' },
               { key: 'pay', label: 'Pay' },
+              { key: 'recruiter_name', label: 'Recruiter' },
               { key: 'status', label: 'Status' },
               { key: 'applicants_count', label: 'Applicants', align: 'right' },
               { key: 'posted_at', label: 'Posted', format: (v) => v ? new Date(v).toLocaleDateString('en-IN') : '' },
