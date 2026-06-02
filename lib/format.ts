@@ -1,10 +1,23 @@
 // Formatting helpers (currency, dates, etc.)
 
+// Short form: ₹1.25 Cr, ₹10.5 L, ₹50,000
 export function rupeeFmt(n: number): string {
   n = Number(n) || 0;
   if (n >= 1e7) return '₹' + (n / 1e7).toFixed(2).replace(/\.0+$/, '') + ' Cr';
   if (n >= 1e5) return '₹' + (n / 1e5).toFixed(2).replace(/\.0+$/, '') + ' L';
   return '₹' + n.toLocaleString('en-IN');
+}
+
+// Full Indian numbering: ₹1,25,00,000
+export function rupeeFull(n: number): string {
+  n = Number(n) || 0;
+  return '₹' + Math.round(n).toLocaleString('en-IN');
+}
+
+// Decimal Indian numbering for non-currency counts: 1,25,00,000
+export function indianNum(n: number): string {
+  n = Number(n) || 0;
+  return n.toLocaleString('en-IN');
 }
 
 // "₹50–75 LPA" → median in absolute rupees
