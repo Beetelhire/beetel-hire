@@ -5,6 +5,7 @@
 
 import { rupeeFmt, rupeeFull } from '@/lib/format';
 import { pctClass, pickGrad, logoLetter } from '@/lib/helpers';
+import { ExportMenu } from './export-menu';
 import {
   TrendingUp, Briefcase, UsersRound,
   Award, BadgePercent, Wallet, CalendarRange,
@@ -112,7 +113,24 @@ export function AnalyticsView({ data }: { data: AnalyticsData }) {
 
       {/* ───────── Recruiter leaderboard ───────── */}
       <div className="panel" style={{ marginBottom: 20 }}>
-        <div className="panel-head"><div><h3>Recruiter leaderboard</h3><div className="sub">Sorted by revenue generated</div></div></div>
+        <div className="panel-head">
+          <div><h3>Recruiter leaderboard</h3><div className="sub">Sorted by revenue generated</div></div>
+          <ExportMenu
+            filename="recruiter-leaderboard"
+            sheet="Leaderboard"
+            title="Recruiter Leaderboard"
+            rows={recruiterLeaderboard}
+            columns={[
+              { key: 'name', label: 'Recruiter' },
+              { key: 'role', label: 'Role' },
+              { key: 'candidates', label: 'Candidates added', align: 'right' },
+              { key: 'interviews', label: 'Interviews', align: 'right' },
+              { key: 'placements', label: 'Placements', align: 'right' },
+              { key: 'revenue', label: 'Revenue', align: 'right', format: (v) => rupeeFull(Number(v) || 0) },
+              { key: 'successPct', label: 'Success rate', align: 'right', format: (v) => `${v}%` },
+            ]}
+          />
+        </div>
         {recruiterLeaderboard.length === 0 ? (
           <div className="empty"><h4>No active recruiters</h4><p>Add team members with role &quot;Recruiter&quot; in <strong style={{ color: 'var(--fg)' }}>Team</strong>.</p></div>
         ) : (
@@ -163,7 +181,22 @@ export function AnalyticsView({ data }: { data: AnalyticsData }) {
 
       {/* ───────── Source performance ───────── */}
       <div className="panel" style={{ marginBottom: 20 }}>
-        <div className="panel-head"><div><h3>Source performance</h3><div className="sub">Where your candidates are coming from</div></div></div>
+        <div className="panel-head">
+          <div><h3>Source performance</h3><div className="sub">Where your candidates are coming from</div></div>
+          <ExportMenu
+            filename="source-performance"
+            sheet="Sources"
+            title="Source Performance"
+            rows={sourcePerf}
+            columns={[
+              { key: 'source', label: 'Source' },
+              { key: 'candidates', label: 'Candidates', align: 'right' },
+              { key: 'interviews', label: 'Interviews', align: 'right' },
+              { key: 'placements', label: 'Placements', align: 'right' },
+              { key: 'revenue', label: 'Revenue', align: 'right', format: (v) => rupeeFull(Number(v) || 0) },
+            ]}
+          />
+        </div>
         {sourcePerf.length === 0 ? (
           <div className="empty"><h4>No source data yet</h4><p>Sources are tracked when candidates are added. Try adding a few in <strong style={{ color: 'var(--fg)' }}>Candidate Pool</strong>.</p></div>
         ) : (

@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react';
 import { Candidate, CANDIDATE_SOURCES } from '@/types/database';
 import { CandidateDrawer } from './candidate-drawer';
 import { AddCandidateModal, JobLite, TeamMemberLite } from './add-candidate-modal';
+import { ExportMenu } from './export-menu';
 import { logoLetter } from '@/lib/format';
 import { Search, ChevronRight, UserPlus } from 'lucide-react';
 
@@ -167,6 +168,28 @@ export function CandidatePoolTable({
         )}
 
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+          <ExportMenu
+            filename="candidate-pool"
+            sheet="Candidates"
+            title="Candidate Pool"
+            rows={filtered}
+            columns={[
+              { key: 'name', label: 'Name' },
+              { key: 'email', label: 'Email' },
+              { key: 'phone', label: 'Phone' },
+              { key: 'current_company', label: 'Company' },
+              { key: 'current_designation', label: 'Designation' },
+              { key: 'experience', label: 'Experience' },
+              { key: 'location', label: 'Location' },
+              { key: 'source', label: 'Source' },
+              { key: 'recruiter_name', label: 'Recruiter' },
+              { key: 'pool_status', label: 'Pool status' },
+              { key: 'skills', label: 'Skills', format: (v) => Array.isArray(v) ? v.join(', ') : '' },
+              { key: 'applied_jobs', label: 'Applied to', format: (v) => Array.isArray(v) ? v.map((j: any) => j.title).join(', ') : '' },
+              { key: 'linkedin_url', label: 'LinkedIn' },
+              { key: 'created_at', label: 'Added', format: (v) => v ? new Date(v).toLocaleDateString('en-IN') : '' },
+            ]}
+          />
           <button className="btn btn-glow btn-sm" onClick={() => setAddOpen(true)}>
             <UserPlus size={14} /> Add candidate
           </button>

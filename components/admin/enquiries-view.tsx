@@ -6,6 +6,7 @@
 import { useMemo, useState } from 'react';
 import { Inbox, Mail, Phone, Search, ChevronDown, Trash2, Building2, Calendar } from 'lucide-react';
 import { showToast } from '../toast';
+import { ExportMenu } from './export-menu';
 import { fmtRelative, logoLetter } from '@/lib/format';
 import type { ContactEnquiry, ContactEnquiryStatus } from '@/types/database';
 
@@ -114,6 +115,25 @@ export function EnquiriesView({ initial }: { initial: ContactEnquiry[] }) {
                 {s} <span style={{ opacity: 0.5, marginLeft: 6 }}>{counts[s]}</span>
               </button>
             ))}
+          </div>
+          <div style={{ marginLeft: 'auto' }}>
+            <ExportMenu
+              filename="contact-enquiries"
+              sheet="Enquiries"
+              title="Contact Enquiries"
+              rows={filtered}
+              columns={[
+                { key: 'full_name', label: 'Name' },
+                { key: 'company_name', label: 'Company' },
+                { key: 'email', label: 'Email' },
+                { key: 'phone', label: 'Phone' },
+                { key: 'subject', label: 'Subject' },
+                { key: 'message', label: 'Message' },
+                { key: 'status', label: 'Status' },
+                { key: 'created_at', label: 'Received', format: (v) => v ? new Date(v).toLocaleDateString('en-IN') : '' },
+                { key: 'notes', label: 'Notes' },
+              ]}
+            />
           </div>
         </div>
       </div>

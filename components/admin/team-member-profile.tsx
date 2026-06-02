@@ -11,6 +11,7 @@ import { ArrowLeft, Edit2, Plus, CheckCircle2, Trash2, Mail, Phone, Briefcase, C
 import { TeamMember, MonthlyPerformance } from '@/types/database';
 import { AddTeamMemberModal } from './add-team-member-modal';
 import { MonthlyPerfModal } from './monthly-perf-modal';
+import { ExportMenu } from './export-menu';
 import { showToast } from '../toast';
 import { rupeeFmt, rupeeFull } from '@/lib/format';
 import { pctClass, pickGrad, logoLetter } from '@/lib/helpers';
@@ -121,6 +122,22 @@ export function TeamMemberProfile({ member, records, managerName, managers, acti
           <p>{member.designation || member.role}{member.department ? ` · ${member.department}` : ''}</p>
         </div>
         <div style={{ display: 'flex', gap: 8 }}>
+          <ExportMenu
+            filename={`performance-${member.full_name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+            sheet="Performance"
+            title={`${member.full_name} — Performance`}
+            rows={[...sorted].reverse()}
+            columns={[
+              { key: 'month', label: 'Month' },
+              { key: 'target_revenue', label: 'Target revenue', align: 'right', format: (v) => rupeeFull(Number(v) || 0) },
+              { key: 'achieved_revenue', label: 'Achieved revenue', align: 'right', format: (v) => rupeeFull(Number(v) || 0) },
+              { key: 'placements_made', label: 'Placements', align: 'right' },
+              { key: 'interviews_scheduled', label: 'Interviews', align: 'right' },
+              { key: 'candidates_processed', label: 'Candidates processed', align: 'right' },
+              { key: 'completed', label: 'Status', format: (v) => v ? 'Complete' : 'Open' },
+              { key: 'notes', label: 'Notes' },
+            ]}
+          />
           <button className="btn btn-secondary btn-sm" onClick={() => setEditOpen(true)}>
             <Edit2 size={13} /> Edit
           </button>

@@ -8,8 +8,9 @@ import { useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { TeamMember } from '@/types/database';
 import { AddTeamMemberModal } from './add-team-member-modal';
+import { ExportMenu } from './export-menu';
 import { pickGrad, logoLetter, pctClass } from '@/lib/helpers';
-import { rupeeFmt } from '@/lib/format';
+import { rupeeFmt, rupeeFull } from '@/lib/format';
 import { Search, UserPlus, ChevronRight } from 'lucide-react';
 
 export type TeamRow = TeamMember & {
@@ -77,6 +78,28 @@ export function TeamTable({ rows: initial }: { rows: TeamRow[] }) {
         </button>
 
         <div style={{ marginLeft: 'auto', display: 'flex', gap: 8 }}>
+          <ExportMenu
+            filename="team"
+            sheet="Team"
+            title="Team"
+            rows={filtered}
+            columns={[
+              { key: 'employee_id', label: 'Employee ID' },
+              { key: 'full_name', label: 'Name' },
+              { key: 'email', label: 'Email' },
+              { key: 'phone', label: 'Phone' },
+              { key: 'role', label: 'Role' },
+              { key: 'department', label: 'Department' },
+              { key: 'designation', label: 'Designation' },
+              { key: 'doj', label: 'Date of joining', format: (v) => v ? new Date(v).toLocaleDateString('en-IN') : '' },
+              { key: 'manager_name', label: 'Manager' },
+              { key: 'active_jobs', label: 'Active jobs', align: 'right' },
+              { key: 'candidates_managed', label: 'Candidates managed', align: 'right' },
+              { key: 'this_month_target', label: 'This month target', align: 'right', format: (v) => rupeeFull(Number(v) || 0) },
+              { key: 'this_month_achieved', label: 'This month achieved', align: 'right', format: (v) => rupeeFull(Number(v) || 0) },
+              { key: 'status', label: 'Status' },
+            ]}
+          />
           <button className="btn btn-glow btn-sm" onClick={() => setAddOpen(true)}>
             <UserPlus size={14} /> Add team member
           </button>

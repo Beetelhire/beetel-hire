@@ -7,6 +7,7 @@ import { showToast } from '../toast';
 import { fmtRelative, functionIcon } from '@/lib/format';
 import * as LucideIcons from 'lucide-react';
 import { Edit2, Trash2, Search, Globe, Linkedin, Instagram } from 'lucide-react';
+import { ExportMenu } from './export-menu';
 
 type J = {
   id: string;
@@ -136,6 +137,28 @@ export function AdminJobsTable({ jobs: allJobs }: { jobs: J[] }) {
             <option value="instagram">Instagram</option>
           </select>
         </button>
+
+        <div style={{ marginLeft: 'auto' }}>
+          <ExportMenu
+            filename="open-jobs"
+            sheet="Jobs"
+            title="Open Jobs"
+            rows={filtered}
+            columns={[
+              { key: 'title', label: 'Title' },
+              { key: 'client_company', label: 'Client' },
+              { key: 'loc', label: 'Location' },
+              { key: 'type', label: 'Arrangement' },
+              { key: 'fn', label: 'Function' },
+              { key: 'experience', label: 'Experience' },
+              { key: 'pay', label: 'Pay' },
+              { key: 'status', label: 'Status' },
+              { key: 'applicants_count', label: 'Applicants', align: 'right' },
+              { key: 'posted_at', label: 'Posted', format: (v) => v ? new Date(v).toLocaleDateString('en-IN') : '' },
+              { key: 'posted_platforms', label: 'Platforms', format: (v) => Array.isArray(v) ? v.join(', ') : '' },
+            ]}
+          />
+        </div>
       </div>
 
       <div className="panel">

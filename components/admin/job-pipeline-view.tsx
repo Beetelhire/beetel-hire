@@ -11,6 +11,7 @@ import {
 } from '@/types/database';
 import { AddCandidateModal, JobLite, TeamMemberLite } from './add-candidate-modal';
 import { AddExistingCandidateModal, CandidateLite } from './add-existing-candidate-modal';
+import { ExportMenu } from './export-menu';
 import { showToast } from '../toast';
 import { fmtRelative, logoLetter } from '@/lib/format';
 import {
@@ -172,6 +173,22 @@ export function JobPipelineView({ jobId, jobTitle, rows: initialRows, poolForLin
             <div className="sub">{rows.length} candidate{rows.length === 1 ? '' : 's'} across all stages</div>
           </div>
           <div style={{ display: 'flex', gap: 8 }}>
+            <ExportMenu
+              filename={`pipeline-${jobTitle.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}
+              sheet="Pipeline"
+              title={`Pipeline — ${jobTitle}`}
+              rows={filtered}
+              columns={[
+                { key: 'candidate_name', label: 'Candidate' },
+                { key: 'candidate_email', label: 'Email' },
+                { key: 'candidate_experience', label: 'Experience' },
+                { key: 'candidate_location', label: 'Location' },
+                { key: 'source', label: 'Source' },
+                { key: 'recruiter_name', label: 'Recruiter' },
+                { key: 'stage', label: 'Stage' },
+                { key: 'added_at', label: 'Added', format: (v) => v ? new Date(v).toLocaleDateString('en-IN') : '' },
+              ]}
+            />
             <button className="btn btn-secondary btn-sm" onClick={() => setAddExistingOpen(true)}>
               <UsersRound size={13} /> Add existing
             </button>
