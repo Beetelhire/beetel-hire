@@ -18,8 +18,6 @@ Munipapaiah Layout, 2nd Phase, 2nd Block
 Arekere, HIMB Post, BDA 80 Feet Road
 Bangalore – 560076`,
   hours: 'Monday – Friday · 10:00 AM – 7:00 PM IST',
-  mapEmbedUrl:
-    'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62208.8!2d77.5946!3d12.9716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0!2zMTLCsDU4JzE3LjgiTiA3N8KwMzUnNDAuNiJF!5e0!3m2!1sen!2sin!4v1700000000000',
 };
 
 export default function ContactPage() {
@@ -78,19 +76,6 @@ export default function ContactPage() {
                   <div className="contact-label">Working hours</div>
                   <div className="contact-value">{COMPANY_INFO.hours}</div>
                 </div>
-              </div>
-
-              <div className="contact-map" aria-label="Map">
-                <iframe
-                  src={COMPANY_INFO.mapEmbedUrl}
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen={false}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Beetel Hire location"
-                />
               </div>
             </aside>
 
