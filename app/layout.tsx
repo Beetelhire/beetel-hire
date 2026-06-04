@@ -10,9 +10,51 @@ import { BookCallModal } from '@/components/book-call-modal';
 import Script from 'next/script';
 
 export const metadata: Metadata = {
-  title: 'Beetel Hire — Technology Meets Talent',
-  description: 'Premium recruitment technology infrastructure connecting exceptional talent with modern companies.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://beetelhire.in'),
+  title: {
+    default: 'Beetel Hire — Technology Meets Talent',
+    template: '%s — Beetel Hire',
+  },
+  description:
+    'Beetel Hire is a new-generation recruitment platform connecting ambitious people with the companies building what\'s next. Specialised hiring across IT, BFSI, healthcare, manufacturing, engineering, telecom, retail and energy.',
+  keywords: [
+    'recruitment India', 'hiring platform', 'IT recruitment', 'tech hiring',
+    'executive search India', 'BFSI recruitment', 'engineering recruitment',
+    'Bangalore recruiters', 'modern recruitment agency', 'Beetel Hire',
+  ],
+  authors: [{ name: 'Beetel Hire' }],
+  creator: 'Beetel Hire',
+  publisher: 'Beetel Hire',
+  alternates: {
+    canonical: '/',
+  },
+  openGraph: {
+    type: 'website',
+    locale: 'en_IN',
+    url: '/',
+    siteName: 'Beetel Hire',
+    title: 'Beetel Hire — Technology Meets Talent',
+    description: 'A new-generation recruitment platform connecting ambitious people with the companies building what\'s next.',
+    images: [
+      { url: '/beetel-hire-logo-light.svg', width: 1200, height: 630, alt: 'Beetel Hire' },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Beetel Hire — Technology Meets Talent',
+    description: 'A new-generation recruitment platform connecting ambitious people with the companies building what\'s next.',
+    images: ['/beetel-hire-logo-light.svg'],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
