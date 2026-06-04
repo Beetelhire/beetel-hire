@@ -11,9 +11,12 @@ export const dynamic = 'force-dynamic';
 // ── Edit these values to update the Contact page ─────────────
 const COMPANY_INFO = {
   name: 'Beetel Hire',
-  email: 'contact@beetelhire.in',
-  phone: '+91 80 4567 8910',
-  address: 'Beetel Hire, Bangalore, Karnataka 560001, India',
+  email: 'admin@beetelhire.in',
+  phone: '+91 74117 03065',
+  address: `No.78/2A, 2nd Floor, 4th Shop
+Munipapaiah Layout, 2nd Phase, 2nd Block
+Arekere, HIMB Post, BDA 80 Feet Road
+Bangalore – 560076`,
   hours: 'Monday – Friday · 10:00 AM – 7:00 PM IST',
   mapEmbedUrl:
     'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d62208.8!2d77.5946!3d12.9716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0!2zMTLCsDU4JzE3LjgiTiA3N8KwMzUnNDAuNiJF!5e0!3m2!1sen!2sin!4v1700000000000',
