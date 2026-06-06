@@ -5236,3 +5236,90 @@ html[data-theme="dark"] .dash-score-val { color: var(--hv-accent); }
   .hero-v2-ctas { gap: 8px; }
   .hero-v2-ctas .btn { flex: 1; min-width: 0; }
 }
+
+/* ============================================================
+   TESTIMONIALS — refresh with decorative quote glyph + hover
+   ============================================================ */
+
+/* Gradient initial avatar (used in place of stock photos) */
+.quote .avatar.avatar-initial {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 700;
+  font-size: 13.5px;
+  letter-spacing: 0.02em;
+  border: none;
+  box-shadow: 0 4px 10px rgba(99, 102, 241, 0.22);
+  font-family: var(--font-sans);
+}
+
+/* Decorative opening-quote glyph in the corner of each card */
+.quote {
+  position: relative;
+  transition: transform .35s var(--ease-out), border-color .25s ease, box-shadow .35s ease, background .25s ease;
+}
+.quote::after {
+  content: '\201C';                    /* curly left double quote */
+  position: absolute;
+  top: 12px;
+  right: 22px;
+  font-family: var(--font-serif), 'Instrument Serif', serif;
+  font-size: 84px;
+  line-height: 1;
+  color: var(--hv-primary, #4F46E5);
+  opacity: 0.10;
+  pointer-events: none;
+  user-select: none;
+  font-weight: 500;
+  z-index: 0;
+}
+html[data-theme="dark"] .quote::after { opacity: 0.18; color: var(--hv-accent, #818CF8); }
+
+/* Hover lift */
+.quote:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--hv-primary, #4F46E5) 35%, var(--border));
+  box-shadow: 0 16px 36px -18px rgba(99, 102, 241, 0.30), 0 6px 18px -6px rgba(15, 23, 42, 0.10);
+}
+html[data-theme="dark"] .quote:hover {
+  box-shadow: 0 22px 50px -20px rgba(99, 102, 241, 0.45), 0 8px 22px -8px rgba(0, 0, 0, 0.55);
+}
+
+/* Featured card — accent quote glyph + a slightly stronger one */
+.quote.featured::after {
+  font-size: 140px;
+  top: 18px;
+  right: 36px;
+  opacity: 0.12;
+}
+
+/* Keep paragraph above the glyph */
+.quote p { position: relative; z-index: 1; }
+
+/* Slightly tighter avatar+name block */
+.quote .by { margin-top: 26px; }
+.quote .who { font-weight: 600; }
+
+/* ── Responsive ── */
+@media (max-width: 1100px) {
+  .testimonials {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .quote.featured {
+    grid-column: auto !important;       /* fit cleanly in 2-col layout */
+  }
+  .quote.featured p { font-size: 20px; line-height: 1.4; }
+}
+@media (max-width: 720px) {
+  .testimonials {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+  .quote.featured { grid-column: auto !important; }
+  .quote { padding: 26px 24px; }
+  .quote.featured p { font-size: 19px; line-height: 1.4; }
+  .quote::after { font-size: 64px; top: 8px; right: 16px; }
+  .quote.featured::after { font-size: 96px; top: 12px; right: 22px; }
+}

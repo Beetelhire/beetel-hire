@@ -4,6 +4,7 @@ import { createSupabaseServer } from '@/lib/supabase-server';
 import { JobRow } from '@/components/job-row';
 import { HeroEyebrow } from '@/components/hero-eyebrow';
 import { ClientHeroCTAs, ClientFinalCTAs } from '@/components/home-ctas';
+import { pickGrad } from '@/lib/helpers';
 import {
   ArrowRight, Users, Compass, Crown, Layers,
   Code2, Landmark, HeartPulse, Factory, HardHat, RadioTower, ShoppingBag, Leaf,
@@ -215,51 +216,31 @@ export default async function HomePage() {
           </div>
 
           <div className="testimonials">
-            <div className="quote featured">
-              <p>
-                &ldquo;Working with Beetel Hire felt like having a thoughtful friend in the room — one who actually knew the market, listened to what we needed, and protected the bar even when we were tempted to bend it. <span className="serif">It changed how I think about building teams.</span>&rdquo;
-              </p>
-              <div className="by">
-                <img className="avatar" alt="" src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=160&h=160&auto=format&fit=crop&q=80" />
-                <div>
-                  <div className="who">Lena Okafor</div>
-                  <div className="role">VP Engineering, Halo Labs</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="quote">
-              <p>&ldquo;Best recruiter experience I&apos;ve had. They told me when a role wasn&apos;t right — which is the highest compliment I can give.&rdquo;</p>
-              <div className="by">
-                <img className="avatar" alt="" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=160&h=160&auto=format&fit=crop&q=80" />
-                <div>
-                  <div className="who">Mateo Reyes</div>
-                  <div className="role">Staff Engineer</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="quote">
-              <p>&ldquo;They helped us fill three hard-to-find product roles in six weeks. Every one of them is still with us — and thriving.&rdquo;</p>
-              <div className="by">
-                <img className="avatar" alt="" src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=160&h=160&auto=format&fit=crop&q=80" />
-                <div>
-                  <div className="who">Priya Anand</div>
-                  <div className="role">Co-founder, Northwall</div>
-                </div>
-              </div>
-            </div>
-
-            <div className="quote">
-              <p>&ldquo;The shortlist Beetel Hire sent us was so tight we hired the first person we met. Twice in a row.&rdquo;</p>
-              <div className="by">
-                <img className="avatar" alt="" src="https://images.unsplash.com/photo-1568822617270-2c1579f8dfe2?w=160&h=160&auto=format&fit=crop&q=80" />
-                <div>
-                  <div className="who">David Chen</div>
-                  <div className="role">CEO, Otto</div>
-                </div>
-              </div>
-            </div>
+            <Testimonial
+              featured
+              initials="RK"
+              name="Rohan K."
+              role="Full Stack Developer"
+              text="I had been applying for months without much response. Through Beetel Hire, I was connected with a startup that matched my skills and received an offer within a few weeks. The process was smooth and transparent throughout."
+            />
+            <Testimonial
+              initials="PS"
+              name="Priya S."
+              role="Frontend Developer"
+              text="Instead of applying to hundreds of jobs, Beetel Hire helped me find opportunities that actually matched my experience. I was able to secure a role that aligned perfectly with my career goals."
+            />
+            <Testimonial
+              initials="AM"
+              name="Arjun M."
+              role="Software Engineer"
+              text="The interview process felt much more organized than my previous job searches. I received timely updates and valuable feedback, which helped me land my next Software Engineer role."
+            />
+            <Testimonial
+              initials="AP"
+              name="Aisha P."
+              role="HR Associate"
+              text="I wasn't actively looking for a new opportunity, but Beetel Hire introduced me to a role that was a great fit. The communication was professional and the entire experience was stress-free."
+            />
           </div>
         </div>
       </section>
@@ -287,6 +268,31 @@ export default async function HomePage() {
 }
 
 /* ===== Small inline subcomponents ===== */
+
+function Testimonial({
+  featured, initials, name, role, text,
+}: {
+  featured?: boolean;
+  initials: string;
+  name: string;
+  role: string;
+  text: string;
+}) {
+  return (
+    <div className={`quote${featured ? ' featured' : ''}`}>
+      <p>&ldquo;{text}&rdquo;</p>
+      <div className="by">
+        <div className="avatar avatar-initial" style={{ background: pickGrad(name) }}>
+          {initials}
+        </div>
+        <div>
+          <div className="who">{name}</div>
+          <div className="role">{role}</div>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 function ServiceCard({ num, title, text, visual, href }: { num: string; title: string; text: string; visual: React.ReactNode; href: string }) {
   return (
