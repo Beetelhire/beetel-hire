@@ -116,13 +116,17 @@ export default async function JobDetailPage({ params }: { params: { id: string }
                 <div style={{ display: 'flex', gap: 12, alignItems: 'center', marginTop: 6 }}>
                   <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'linear-gradient(135deg, var(--violet), var(--accent))' }} />
                   <div>
-                    <div style={{ fontSize: 14, fontWeight: 500 }}>{j.partner_name || 'Thomas Berge'}</div>
+                    <div style={{ fontSize: 14, fontWeight: 500 }}>{j.partner_name || 'Beetel Hire team'}</div>
                     <div style={{ fontSize: 12, color: 'var(--fg-subtle)' }}>{j.partner_role || 'Search partner · Replies in < 4h'}</div>
                   </div>
                 </div>
-                <button className="btn btn-secondary btn-sm" style={{ marginTop: 16, width: '100%' }}>
-                  <MessageCircle size={13} /> Message {(j.partner_name || 'Thomas').split(' ')[0]}
-                </button>
+                <a
+                  className="btn btn-secondary btn-sm"
+                  style={{ marginTop: 16, width: '100%' }}
+                  href={`mailto:admin@beetelhire.in?subject=${encodeURIComponent(`Enquiry about ${j.title}`)}&body=${encodeURIComponent(`Hi ${(j.partner_name || 'Beetel Hire team').split(' ')[0]},\n\nI came across the role "${j.title}"${j.client_company ? ` at ${j.client_company}` : ''} on beetelhire.in and would like to know more.\n\nA bit about me:\n• Current role:\n• Years of experience:\n• Why I'm interested:\n\nLooking forward to hearing from you.\n\nThanks`)}`}
+                >
+                  <MessageCircle size={13} /> Message {(j.partner_name || 'Beetel Hire').split(' ')[0]}
+                </a>
               </div>
             </aside>
           </div>
