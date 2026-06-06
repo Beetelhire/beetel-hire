@@ -26,29 +26,32 @@ export default async function HomePage() {
 
   return (
     <main>
-      {/* ===== HERO ===== */}
-      <section className="hero">
-        <div className="bg-grid"></div>
+      {/* ===== HERO — single column, topology network background ===== */}
+      <section className="hero hero-v2">
+        <div className="bg-grid" aria-hidden="true"></div>
         <TopologyCanvas id="topoHero" />
         <div className="hero-edge-glow" aria-hidden="true" />
-        <div className="container">
+
+        <div className="container hero-v2-center">
           <HeroEyebrow />
-          <img
-            src="/beetel-hire-logo.svg"
-            alt="Beetel Hire"
-            className="hero-brand-mark reveal in"
-          />
-          <h1 className="t-display hero-headline reveal in">
-            Technology<br />
-            meets <span className="hero-headline-accent">talent.</span>
+
+          <h1 className="hero-v2-title reveal in">
+            <span className="grad">Beetel Hire</span>
           </h1>
-          <p className="t-lead hero-sub reveal in">
-            Beetel Hire is a new-generation recruitment platform connecting ambitious people with the companies building what&apos;s next — engineered for signal over noise.
+
+          <p className="hero-v2-tagline reveal in">
+            Technology meets <span className="grad-soft">talent.</span>
           </p>
+
+          <p className="hero-v2-copy reveal in">
+            We help ambitious companies discover, evaluate, and hire exceptional talent faster — with expert sourcing, streamlined workflows, and data-driven hiring.
+          </p>
+
           <ClientHeroCTAs />
-          <div className="hero-tertiary reveal in">
-            <span className="pulse-dot" style={{ display:'inline-block', width:6, height:6, borderRadius:'50%', background:'#4ade80', marginRight:8, verticalAlign:'middle' }} />
-            Hiring? Book a 20-minute intro — we&apos;ll let you know within a week whether we&apos;re the right partner.
+
+          <div className="hero-v2-trust reveal in">
+            <span className="hero-v2-trust-dot" />
+            Trusted by growing startups and scaling teams across India.
           </div>
         </div>
       </section>

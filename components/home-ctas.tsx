@@ -7,12 +7,12 @@ import { useBookCall } from './book-call-modal';
 export function ClientHeroCTAs() {
   const { open } = useBookCall();
   return (
-    <div className="hero-cta reveal in">
+    <div className="hero-v2-ctas reveal in">
       <Link className="btn btn-glow btn-xl" href="/jobs">
-        Explore jobs <ArrowUpRight size={16} />
+        Explore Jobs <ArrowUpRight size={16} />
       </Link>
       <button className="btn btn-secondary btn-xl" onClick={open}>
-        <Calendar size={15} /> Book a call
+        <Calendar size={15} /> Book a Call
       </button>
     </div>
   );
