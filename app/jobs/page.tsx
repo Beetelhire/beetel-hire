@@ -13,16 +13,7 @@ export default async function JobsPage() {
     .order('posted_at', { ascending: false });
 
   return (
-    <main style={{ position: 'relative', overflow: 'hidden' }}>
-      {/* Subtle full-page brand watermark */}
-      <img
-        src="/beetel-hire-logo.svg"
-        alt=""
-        aria-hidden="true"
-        className="logo-watermark"
-        style={{ top: '40%' }}
-      />
-
+    <main>
       <section className="jobs-hero" style={{ position: 'relative', overflow: 'hidden' }}>
         <TopologyCanvas id="topoJobs" variant="dim" density={0.55} maxDist={320} />
         <div className="container">
@@ -35,9 +26,7 @@ export default async function JobsPage() {
         </div>
       </section>
 
-      <div style={{ position: 'relative', zIndex: 1 }}>
-        <JobsFilteredList jobs={(data || []) as any} />
-      </div>
+      <JobsFilteredList jobs={(data || []) as any} />
     </main>
   );
 }

@@ -38,8 +38,8 @@ export function TopBar() {
     >
       <nav className="nav">
         <Link className="brand" href="/" aria-label="Beetel Hire — home">
-          <img src="/beetel-hire-logo-light.svg" alt="Beetel Hire" className="brand-logo brand-logo-light md" />
-          <img src="/beetel-hire-logo-dark.svg"  alt="Beetel Hire" className="brand-logo brand-logo-dark md" />
+          <img src="/beetel-hire-logo-light.svg" alt="Beetel Hire" className="brand-logo brand-logo-light" />
+          <img src="/beetel-hire-logo-dark.svg"  alt="Beetel Hire" className="brand-logo brand-logo-dark" />
         </Link>
         <div className="nav-links">
           <Link className={`nav-link${isActive('/') ? ' active' : ''}`} href="/">Home</Link>

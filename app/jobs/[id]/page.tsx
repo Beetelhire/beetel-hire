@@ -33,7 +33,16 @@ export default async function JobDetailPage({ params }: { params: { id: string }
   const line2 = words.length > 1 ? words.slice(half).join(' ') : '';
 
   return (
-    <main>
+    <main style={{ position: 'relative', overflow: 'hidden' }}>
+      {/* Subtle full-page brand watermark behind the job detail */}
+      <img
+        src="/beetel-hire-logo.svg"
+        alt=""
+        aria-hidden="true"
+        className="logo-watermark"
+        style={{ top: '38%' }}
+      />
+
       <section className="job-detail-hero">
         <div className="container">
           <div className="crumb reveal in">

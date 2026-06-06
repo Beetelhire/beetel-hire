@@ -64,6 +64,11 @@ export default function AboutPage() {
         </div>
       </section>
 
+      {/* Subtle brand divider */}
+      <div className="brand-divider" aria-hidden="true">
+        <img src="/beetel-hire-logo.svg" alt="" />
+      </div>
+
       {/* Mission */}
       <section className="section">
         <div className="container">

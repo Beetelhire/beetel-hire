@@ -33,6 +33,11 @@ export default async function HomePage() {
         <div className="hero-edge-glow" aria-hidden="true" />
         <div className="container">
           <HeroEyebrow />
+          <img
+            src="/beetel-hire-logo.svg"
+            alt="Beetel Hire"
+            className="hero-brand-mark reveal in"
+          />
           <h1 className="t-display hero-headline reveal in">
             Technology<br />
             meets <span className="hero-headline-accent">talent.</span>
@@ -95,10 +100,34 @@ export default async function HomePage() {
           </div>
 
           <div className="services-grid-v3">
-            <ServiceCard num="01 — Talent Acquisition"   title="End-to-end search"    text="We embed with your team, learn your bar, and bring you a curated shortlist — not a flood of resumes." visual={<TalentVisual />} />
-            <ServiceCard num="02 — Recruitment Consulting" title="Hiring strategy"     text="Comp benchmarking, interview design, and process audits — for founders building the muscle in-house." visual={<ConsultVisual />} />
-            <ServiceCard num="03 — Executive Hiring"     title="C-suite & board search" text="Discreet, deeply researched search for leadership roles. Most placements come through warm introductions." visual={<ExecVisual />} />
-            <ServiceCard num="04 — Staffing Solutions"   title="Fractional & contract" text="Vetted contract and fractional talent for short-cycle projects — briefed and ready to ship within days." visual={<StaffVisual />} />
+            <ServiceCard
+              num="01 — Talent Acquisition"
+              title="End-to-end search"
+              text="We embed with your team, learn your bar, and bring you a curated shortlist — not a flood of resumes."
+              visual={<TalentVisual />}
+              href="/industries"
+            />
+            <ServiceCard
+              num="02 — Recruitment Consulting"
+              title="Hiring strategy"
+              text="Comp benchmarking, interview design, and process audits — for founders building the muscle in-house."
+              visual={<ConsultVisual />}
+              href="/contact"
+            />
+            <ServiceCard
+              num="03 — Executive Hiring"
+              title="C-suite & board search"
+              text="Discreet, deeply researched search for leadership roles. Most placements come through warm introductions."
+              visual={<ExecVisual />}
+              href="/contact"
+            />
+            <ServiceCard
+              num="04 — Staffing Solutions"
+              title="Fractional & contract"
+              text="Vetted contract and fractional talent for short-cycle projects — briefed and ready to ship within days."
+              visual={<StaffVisual />}
+              href="/jobs"
+            />
           </div>
         </div>
       </section>
@@ -256,17 +285,17 @@ export default async function HomePage() {
 
 /* ===== Small inline subcomponents ===== */
 
-function ServiceCard({ num, title, text, visual }: { num: string; title: string; text: string; visual: React.ReactNode }) {
+function ServiceCard({ num, title, text, visual, href }: { num: string; title: string; text: string; visual: React.ReactNode; href: string }) {
   return (
-    <div className="service-card-h">
+    <Link className="service-card-h" href={href}>
       <div className="service-visual-h">{visual}</div>
       <div className="service-body-h">
         <div className="service-num">{num}</div>
         <h3>{title}</h3>
         <p>{text}</p>
-        <a className="service-link">Learn more <ArrowRight size={13} /></a>
+        <span className="service-link">Learn more <ArrowRight size={13} /></span>
       </div>
-    </div>
+    </Link>
   );
 }
 

@@ -87,6 +87,11 @@ export default function IndustriesPage() {
         </div>
       </section>
 
+      {/* Subtle brand divider */}
+      <div className="brand-divider" aria-hidden="true">
+        <img src="/beetel-hire-logo.svg" alt="" />
+      </div>
+
       {/* Approach */}
       <section className="section-sm" style={{ borderTop: '1px solid var(--border)' }}>
         <div className="container">

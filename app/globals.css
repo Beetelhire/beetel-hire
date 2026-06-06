@@ -273,7 +273,7 @@ html[data-theme="light"] .nav::before { background: linear-gradient(90deg, trans
 /* Official Beetel Hire logo */
 .brand-logo {
   display: block;
-  height: 42px;
+  height: 38px;
   width: auto;
   transition: filter .35s var(--ease-out);
 }
@@ -312,16 +312,23 @@ html[data-theme="dark"] .brand-logo-dark  { display: block; }
   position: absolute;
   pointer-events: none;
   user-select: none;
-  opacity: 0.035;
-  max-width: 1400px;
-  width: 95%;
+  opacity: 0.04;
+  max-width: 1100px;
+  width: 90%;
   height: auto;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) rotate(-8deg);
+  transform: translate(-50%, -50%) rotate(-6deg);
   z-index: 0;
 }
-html[data-theme="dark"] .logo-watermark { opacity: 0.045; }
+html[data-theme="dark"] .logo-watermark { opacity: 0.05; }
+
+/* Ensure sibling sections of the watermark sit on top */
+.logo-watermark ~ section,
+.logo-watermark ~ div {
+  position: relative;
+  z-index: 1;
+}
 
 /* Hero brand-mark — for prominent feature placement (about page, footer mega, etc.) */
 .brand-feature {
@@ -4728,4 +4735,34 @@ a.contact-value:hover { color: var(--accent); }
 /* Cards in KPI grids have a subtle hover lift */
 .panel:hover {
   /* keep panels themselves stable — only KPI cards lift */
+}
+
+/* Hero brand mark — large logo above the home page headline */
+.hero-brand-mark {
+  display: block;
+  width: 100%;
+  max-width: 460px;
+  height: auto;
+  margin: 18px 0 24px 0;
+}
+@media (max-width: 720px) {
+  .hero-brand-mark { max-width: 340px; margin: 14px 0 18px 0; }
+}
+
+/* Subtle inline brand divider — for use between sections on long pages */
+.brand-divider {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+  opacity: 0.4;
+}
+.brand-divider img {
+  height: 28px;
+  width: auto;
+  filter: grayscale(0.4);
+}
+@media (max-width: 720px) {
+  .brand-divider { padding: 24px 0; }
+  .brand-divider img { height: 22px; }
 }
