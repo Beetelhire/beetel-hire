@@ -3,7 +3,6 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { TopologyCanvas } from './topology-canvas';
-import { Linkedin, Twitter, Github } from 'lucide-react';
 
 export function Footer() {
   const pathname = usePathname();
@@ -23,40 +22,19 @@ export function Footer() {
             <p className="foot-blurb">Recruitment technology infrastructure — where exceptional talent meets the companies building what&apos;s next.</p>
           </div>
           <div>
-            <h5>Product</h5>
+            <h5>Explore</h5>
             <ul>
-              <li><Link href="/jobs">Browse jobs</Link></li>
-              <li><Link href="/sign-in">Sign in</Link></li>
-              <li><Link href="/admin">For employers</Link></li>
-              <li><a href="#">Pricing</a></li>
-            </ul>
-          </div>
-          <div>
-            <h5>Company</h5>
-            <ul>
+              <li><Link href="/">Home</Link></li>
               <li><Link href="/about">About</Link></li>
               <li><Link href="/industries">Industries</Link></li>
-              <li><a href="#">Press</a></li>
-              <li><a href="#">Careers</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><Link href="/jobs">Jobs</Link></li>
+              <li><Link href="/contact">Contact</Link></li>
             </ul>
           </div>
           <div>
-            <h5>Resources</h5>
+            <h5>Account</h5>
             <ul>
-              <li><a href="#">Field notes</a></li>
-              <li><a href="#">Salary reports</a></li>
-              <li><a href="#">Interview library</a></li>
-              <li><a href="#">Help center</a></li>
-            </ul>
-          </div>
-          <div>
-            <h5>Legal</h5>
-            <ul>
-              <li><a href="#">Terms</a></li>
-              <li><a href="#">Privacy</a></li>
-              <li><a href="#">Cookies</a></li>
-              <li><a href="#">Security</a></li>
+              <li><Link href="/sign-in">Sign in</Link></li>
             </ul>
           </div>
         </div>
@@ -66,12 +44,7 @@ export function Footer() {
         </div>
 
         <div className="foot-bottom">
-          <div>© {new Date().getFullYear()} Beetel Hire Technologies, Inc. — Connecting talent and opportunity worldwide.</div>
-          <div style={{ display: 'flex', gap: 14 }}>
-            <a href="#"><Linkedin size={16} /></a>
-            <a href="#"><Twitter size={16} /></a>
-            <a href="#"><Github size={16} /></a>
-          </div>
+          <div>© {new Date().getFullYear()} Beetel Hire Technologies, Inc. — Connecting talent and opportunity across India.</div>
         </div>
       </div>
     </footer>

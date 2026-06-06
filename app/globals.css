@@ -2015,8 +2015,8 @@ footer {
 }
 .foot-grid {
   display: grid;
-  grid-template-columns: 1.4fr 1fr 1fr 1fr 1fr;
-  gap: 48px;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 64px;
   margin-bottom: 80px;
 }
 .foot-grid h5 { font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--fg-subtle); margin-bottom: 18px; font-weight: 500; }
