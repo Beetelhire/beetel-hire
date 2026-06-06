@@ -127,18 +127,14 @@ export function TeamTable({ rows: initial }: { rows: TeamRow[] }) {
           <p>Click <strong style={{ color: 'var(--fg)' }}>Add team member</strong> to start building your team directory. Performance tracking, recruiter assignment, and targets will all hang off this.</p>
         </div>
       ) : (
-        <div className="panel">
+        <div className="panel" style={{ overflowX: 'auto' }}>
           <table className="table">
             <thead>
               <tr>
                 <th>Employee</th>
-                <th>Employee ID</th>
                 <th>Role</th>
                 <th>Department</th>
-                <th>DOJ</th>
-                <th>Manager</th>
                 <th style={{ textAlign: 'right' }}>Active jobs</th>
-                <th style={{ textAlign: 'right' }}>Candidates</th>
                 <th style={{ minWidth: 180 }}>This month</th>
                 <th>Status</th>
                 <th style={{ width: 1 }}></th>
@@ -157,17 +153,24 @@ export function TeamTable({ rows: initial }: { rows: TeamRow[] }) {
                           : <div style={{ width: 34, height: 34, borderRadius: '50%', background: pickGrad(r.full_name), color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 600, fontSize: 13 }}>{logoLetter(r.full_name)}</div>}
                         <div style={{ minWidth: 0 }}>
                           <div style={{ fontWeight: 500 }}>{r.full_name}</div>
-                          <div className="small" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{r.email}</div>
+                          <div className="small" style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                            {r.employee_id ? <>{r.employee_id} · </> : null}{r.email}
+                          </div>
                         </div>
                       </div>
                     </td>
-                    <td><span className="small">{r.employee_id || '—'}</span></td>
-                    <td>{r.role}</td>
-                    <td><span className="small">{r.department || '—'}</span></td>
-                    <td><span className="small">{r.doj ? new Date(r.doj).toLocaleDateString('en-IN', { year: 'numeric', month: 'short', day: 'numeric' }) : '—'}</span></td>
-                    <td><span className="small">{r.manager_name || '—'}</span></td>
-                    <td style={{ textAlign: 'right' }}>{r.active_jobs}</td>
-                    <td style={{ textAlign: 'right' }}>{r.candidates_managed}</td>
+                    <td>
+                      <div>{r.role}</div>
+                      {r.designation && <div className="small">{r.designation}</div>}
+                    </td>
+                    <td>
+                      <div className="small">{r.department || '—'}</div>
+                      {r.manager_name && <div className="small" style={{ fontSize: 11, opacity: 0.7 }}>↳ {r.manager_name}</div>}
+                    </td>
+                    <td style={{ textAlign: 'right' }}>
+                      <div>{r.active_jobs}</div>
+                      <div className="small" style={{ fontSize: 11 }}>{r.candidates_managed} cands.</div>
+                    </td>
                     <td>
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -189,7 +192,7 @@ export function TeamTable({ rows: initial }: { rows: TeamRow[] }) {
                 );
               })}
               {filtered.length === 0 && (
-                <tr><td colSpan={11}>
+                <tr><td colSpan={7}>
                   <div className="empty"><h4>No matches</h4><p>Try clearing the filter or search.</p></div>
                 </td></tr>
               )}
