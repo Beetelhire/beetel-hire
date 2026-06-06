@@ -23,10 +23,10 @@ export function AdminSidebar({ profile }: { profile: Profile }) {
 
   return (
     <aside className="sidebar">
-      <Link className="brand" href="/admin">
-        <img src="/beetel-hire-logo-light.svg" alt="Beetel Hire" className="brand-logo brand-logo-light sm" />
-        <img src="/beetel-hire-logo-dark.svg"  alt="Beetel Hire" className="brand-logo brand-logo-dark sm" />
-        <span className="admin-chip">ADMIN</span>
+      <Link className="brand" href="/admin" style={{ flexDirection: 'column', alignItems: 'flex-start', gap: 10, padding: '4px 0 16px' }}>
+        <img src="/beetel-hire-logo-light.svg" alt="Beetel Hire" className="brand-logo brand-logo-light md" />
+        <img src="/beetel-hire-logo-dark.svg"  alt="Beetel Hire" className="brand-logo brand-logo-dark md" />
+        <span className="admin-chip" style={{ marginLeft: 0 }}>ADMIN PANEL</span>
       </Link>
 
       <div className="side-label">Workspace</div>

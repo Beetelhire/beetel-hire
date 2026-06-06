@@ -273,7 +273,7 @@ html[data-theme="light"] .nav::before { background: linear-gradient(90deg, trans
 /* Official Beetel Hire logo */
 .brand-logo {
   display: block;
-  height: 30px;
+  height: 42px;
   width: auto;
   transition: filter .35s var(--ease-out);
 }
@@ -282,26 +282,54 @@ html[data-theme="light"] .nav::before { background: linear-gradient(90deg, trans
 html[data-theme="dark"] .brand-logo-light { display: none; }
 html[data-theme="dark"] .brand-logo-dark  { display: block; }
 
-.brand:hover .brand-logo { filter: drop-shadow(0 0 12px color-mix(in oklab, var(--accent) 35%, transparent)); }
+.brand:hover .brand-logo { filter: drop-shadow(0 0 16px color-mix(in oklab, var(--accent) 45%, transparent)); }
 
-/* size variants */
-.brand-logo.sm { height: 26px; }
-.brand-logo.md { height: 34px; }
-.brand-logo.lg { height: 42px; }
+/* size variants — bumped up for stronger brand presence */
+.brand-logo.sm { height: 36px; }
+.brand-logo.md { height: 52px; }
+.brand-logo.lg { height: 72px; }
+.brand-logo.xl { height: 100px; }
 
 .admin-chip {
   display: inline-flex; align-items: center;
-  margin-left: 8px;
-  padding: 2px 7px;
-  font-size: 9.5px;
-  font-weight: 600;
-  letter-spacing: .14em;
+  margin-left: 10px;
+  padding: 4px 11px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .16em;
   text-transform: uppercase;
-  background: var(--accent-soft);
-  color: var(--accent);
-  border: 1px solid color-mix(in oklab, var(--accent) 25%, transparent);
-  border-radius: 5px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: white;
+  border: none;
+  border-radius: 7px;
   font-family: var(--font-mono);
+  box-shadow: 0 2px 8px color-mix(in oklab, var(--accent) 28%, transparent);
+}
+
+/* Logo watermark — for use as a faint background on long pages.
+   Add to any parent container with `position: relative`.  */
+.logo-watermark {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.035;
+  max-width: 1400px;
+  width: 95%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-8deg);
+  z-index: 0;
+}
+html[data-theme="dark"] .logo-watermark { opacity: 0.045; }
+
+/* Hero brand-mark — for prominent feature placement (about page, footer mega, etc.) */
+.brand-feature {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  margin: 0 auto;
 }
 
 /* ============================================================

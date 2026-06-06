@@ -17,8 +17,8 @@ export function Footer() {
         <div className="foot-grid">
           <div>
             <Link className="brand" href="/" aria-label="Beetel Hire">
-              <img src="/beetel-hire-logo-light.svg" alt="Beetel Hire" className="brand-logo brand-logo-light md" />
-              <img src="/beetel-hire-logo-dark.svg"  alt="Beetel Hire" className="brand-logo brand-logo-dark md" />
+              <img src="/beetel-hire-logo-light.svg" alt="Beetel Hire" className="brand-logo brand-logo-light lg" />
+              <img src="/beetel-hire-logo-dark.svg"  alt="Beetel Hire" className="brand-logo brand-logo-dark lg" />
             </Link>
             <p className="foot-blurb">Recruitment technology infrastructure — where exceptional talent meets the companies building what&apos;s next.</p>
           </div>
