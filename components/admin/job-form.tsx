@@ -46,7 +46,7 @@ export function JobForm({ mode, initial }: Props) {
         },
         loc:            (form.get('loc')        as string).trim(),
         type:           form.get('type') || 'Hybrid',
-        experience:     form.get('experience') || '5-10 yrs',
+        experience:     ((form.get('experience') as string) || '').trim() || null,
         fn:             form.get('fn') || 'Engineering',
         pay:            (form.get('pay')        as string).trim(),
         pay_note:       (form.get('pay_note')   as string || '+ ESOPs').trim(),
@@ -141,9 +141,12 @@ export function JobForm({ mode, initial }: Props) {
         </div>
         <div>
           <label>Experience</label>
-          <select name="experience" defaultValue={j.experience || '5-10 yrs'}>
-            <option>0-2 yrs</option><option>3-5 yrs</option><option>5-10 yrs</option><option>10+ yrs</option>
-          </select>
+          <input
+            className="input"
+            name="experience"
+            defaultValue={j.experience || ''}
+            placeholder="e.g. 2-4 yrs, Fresher, 5+ yrs"
+          />
         </div>
         <div>
           <label>Function</label>
