@@ -119,23 +119,45 @@ export default function AboutPage() {
               <img alt="Deepa M, Co-founder & CEO" src="/deepa-m.jpg" />
             </div>
             <div className="reveal in">
-              <span className="t-eyebrow label"><span className="dot"></span>A note from the founder</span>
-              <h2>&ldquo;The best hires of my career <span className="serif">never applied.</span>&rdquo;</h2>
+              <span className="t-eyebrow label"><span className="dot"></span>A note from the founders</span>
+              <h2>&ldquo;The best hires of our careers <span className="serif">never applied.</span>&rdquo;</h2>
               <p className="t-body" style={{ fontSize: 16, lineHeight: 1.7, maxWidth: '54ch' }}>
                 We started Beetel Hire because we&apos;d watched the recruiting industry tilt entirely toward volume — outreach blasts, automated workflows, and metrics that measured everything except the thing that actually matters: did the right person end up in the right job.
               </p>
               <blockquote>
                 We&apos;re building something that feels different. Quieter. More curated. The kind of practice you&apos;d recommend to a friend without caveats — and that&apos;s the only metric we care about.
               </blockquote>
-              <div className="sig">
-                <img
-                  src="/deepa-m.jpg"
-                  alt=""
-                  style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', border: '1px solid var(--border)' }}
-                />
-                <div>
-                  <div className="sig-name">Deepa M</div>
-                  <div className="sig-role">Co-founder &amp; CEO, Beetel Hire</div>
+
+              {/* Co-founder signatures */}
+              <div style={{ display: 'flex', gap: 28, flexWrap: 'wrap', marginTop: 28 }}>
+                <div className="sig" style={{ marginTop: 0 }}>
+                  <img
+                    src="/deepa-m.jpg"
+                    alt=""
+                    style={{ width: 48, height: 48, borderRadius: '50%', objectFit: 'cover', border: '1px solid var(--border)' }}
+                  />
+                  <div>
+                    <div className="sig-name">Deepa M</div>
+                    <div className="sig-role">Co-founder &amp; CEO, Beetel Hire</div>
+                  </div>
+                </div>
+
+                <div className="sig" style={{ marginTop: 0 }}>
+                  <div
+                    aria-hidden="true"
+                    style={{
+                      width: 48, height: 48, borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #4F46E5, #818CF8)',
+                      border: '1px solid var(--border)',
+                      color: 'white',
+                      display: 'flex', alignItems: 'center', justifyContent: 'center',
+                      fontWeight: 700, fontSize: 16, letterSpacing: '0.02em',
+                    }}
+                  >RG</div>
+                  <div>
+                    <div className="sig-name">Rohit G</div>
+                    <div className="sig-role">Co-founder, Beetel Hire</div>
+                  </div>
                 </div>
               </div>
             </div>
