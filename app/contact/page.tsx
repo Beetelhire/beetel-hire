@@ -12,7 +12,7 @@ export const dynamic = 'force-dynamic';
 const COMPANY_INFO = {
   name: 'Beetel Hire',
   email: 'contact@beetelhire.in',
-  phone: '+91 82172 52512',
+  phone: '+91 81230 63196',
   address: `No.78/2A, 2nd Floor, 4th Shop
 Munipapaiah Layout, 2nd Phase, 2nd Block
 Arekere, HIMB Post, BDA 80 Feet Road
