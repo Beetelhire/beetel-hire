@@ -13,10 +13,9 @@ const COMPANY_INFO = {
   name: 'Beetel Hire',
   email: 'contact@beetelhire.in',
   phone: '+91 81230 63196',
-  address: `No.78/2A, 2nd Floor, 4th Shop
-Munipapaiah Layout, 2nd Phase, 2nd Block
-Arekere, HIMB Post, BDA 80 Feet Road
-Bangalore – 560076`,
+  address: `2nd Floor, Shop 4
+Arekere BDA 80 Ft Road
+IIMB Post, Bangalore – 560076`,
   hours: 'Monday – Friday · 10:00 AM – 7:00 PM IST',
 };
 
@@ -66,7 +65,7 @@ export default function ContactPage() {
                 <div className="contact-ico"><MapPin size={16} /></div>
                 <div>
                   <div className="contact-label">Address</div>
-                  <div className="contact-value">{COMPANY_INFO.address}</div>
+                  <div className="contact-value" style={{ whiteSpace: 'pre-line', lineHeight: 1.5 }}>{COMPANY_INFO.address}</div>
                 </div>
               </div>
 
