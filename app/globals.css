@@ -3801,7 +3801,8 @@ html[data-theme="dark"] .ana-pct.danger { color: #ff6b6b; }
   box-shadow: var(--shadow-lg), 0 0 60px color-mix(in oklab, var(--accent) 18%, transparent);
   z-index: 401;
   width: min(580px, calc(100vw - 32px));
-  max-height: calc(100dvh - 64px);
+  max-height: calc(100vh - 64px);       /* fallback for older browsers */
+  max-height: calc(100dvh - 64px);      /* dynamic viewport — accounts for mobile address bar */
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -3838,12 +3839,33 @@ html[data-theme="dark"] .ana-pct.danger { color: #ff6b6b; }
   transition: all .2s;
 }
 .modal-head .close:hover { color: var(--fg); border-color: var(--border-strong); }
-.modal-body { padding: 22px 24px; overflow-y: auto; }
+
+/* Make any form-wrapped body+footer participate in the modal's flex chain
+   so the body scrolls and the foot stays pinned. */
+.modal > form {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+}
+.modal-head { flex-shrink: 0; }
+.modal-body {
+  padding: 22px 24px;
+  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;            /* critical — lets the body actually shrink/scroll */
+  overscroll-behavior: contain;
+}
 .modal-foot {
   padding: 14px 24px;
   border-top: 1px solid var(--border);
   display: flex; justify-content: flex-end; gap: 10px;
   background: var(--bg);
+  flex-shrink: 0;
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
 }
 
 /* Form layout */
